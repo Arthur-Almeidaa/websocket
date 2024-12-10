@@ -12,7 +12,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // Permite a conexão do frontend React
+    origin: process.env.FRONTEND_URL || "http://localhost:3000", // Permite a conexão do frontend React
     methods: ["GET", "POST"],
   },
 });
@@ -79,13 +79,11 @@ io.on("connection", (socket) => {
 });
 
 
-app.get("*", (req, res) => {
-  const indexFile = path.join(__dirname, "dist", "index.html")
-  return res.sendFile(indexFile)
+app.get("/", (req, res) => {
+  res.send('Hello')
 })
 
 
-
-server.listen(PORT, () => {
+server.listen(PORT || 3001, () => {
   console.log("SERVER IS RUNNING");
 });
