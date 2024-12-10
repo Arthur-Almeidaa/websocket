@@ -78,6 +78,14 @@ io.on("connection", (socket) => {
   });
 });
 
+
+app.get("*", (req, res) => {
+  const indexFile = path.join(__dirname, "dist", "index.html")
+  return res.sendFile(indexFile)
+})
+
+
+
 server.listen(PORT, () => {
   console.log("SERVER IS RUNNING");
 });
