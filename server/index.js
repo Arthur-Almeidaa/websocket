@@ -80,7 +80,8 @@ io.on("connection", (socket) => {
 
 
 app.get("/", (req, res) => {
-  res.send('Hello')
+  const indexFile = path.join(__dirname, "public", "index.html")
+  return res.sendFile(indexFile)
 })
 
 
