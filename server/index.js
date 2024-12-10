@@ -1,20 +1,22 @@
 const express = require("express");
 const app = express();
-const path = require('path')
+const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
-const { get } = require('https')
 const cors = require("cors");
 
 app.use(cors());
 
-const PORT = process.env.PORT || 3001
-const staticPath = path.resolve(__dirname, "public")
+const PORT = process.env.PORT || 3001;
+const staticPath = path.resolve(__dirname, "public");
 
-app.use(express.static(staticPath))
+// Servindo arquivos estáticos (para desenvolvimento)
+app.use(express.static(staticPath));
 
+// Criação do servidor HTTP
 const server = http.createServer(app);
 
+// Configuração do Socket.io
 const io = new Server(server, {
   cors: {
     origin: process.env.FRONTEND_URL || "http://localhost:3000", // Permite a conexão do frontend React
@@ -36,6 +38,7 @@ const emitCounts = () => {
   });
 };
 
+// Manipulação de conexões do Socket.io
 io.on("connection", (socket) => {
   console.log(`User connected ${socket.id}`);
 
@@ -46,50 +49,52 @@ io.on("connection", (socket) => {
     mercedesCount,
   });
 
-  // Evento de incremento para Porsche
+  // Eventos de incremento e decremento dos carros
   socket.on("increment_porsche", () => {
     porscheCount++;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de decremento para Porsche
   socket.on("decrement_porsche", () => {
     porscheCount--;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de incremento para Fórmula
   socket.on("increment_formula", () => {
     formulaCount++;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de decremento para Fórmula
   socket.on("decrement_formula", () => {
     formulaCount--;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de incremento para Mercedes
   socket.on("increment_mercedes", () => {
     mercedesCount++;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de decremento para Mercedes
   socket.on("decrement_mercedes", () => {
     mercedesCount--;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 });
 
+// Servir o arquivo HTML para o frontend quando em produção
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "build"))); // Serve os arquivos estáticos gerados pelo build
+  app.get("*", (req, res) => {
+    const indexFile = path.join(__dirname, "build", "index.html");
+    return res.sendFile(indexFile);
+  });
+} else {
+  // Caso esteja em desenvolvimento, serve a pasta public
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  });
+}
 
-app.get("*", (req, res) => {
-  const indexFile = path.join(__dirname, "public", "index.html")
-  return res.sendFile(indexFile)
-})
-
-
-server.listen(PORT || 3001, () => {
-  console.log("SERVER IS RUNNING");
+server.listen(PORT, () => {
+  console.log("SERVER IS RUNNING ON PORT " + PORT);
 });
