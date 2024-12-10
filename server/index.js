@@ -9,6 +9,9 @@ const cors = require("cors");
 app.use(cors());
 
 const PORT = process.env.PORT || 3001
+const staticPath = path.resolve(__dirname, "public")
+
+app.use(express.static(staticPath))
 
 const server = http.createServer(app);
 
