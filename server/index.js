@@ -84,7 +84,7 @@ io.on("connection", (socket) => {
 });
 
 
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
   const indexFile = path.join(__dirname, "public", "index.html")
   return res.sendFile(indexFile)
 })
