@@ -3,7 +3,6 @@ const app = express();
 const path = require('path')
 const http = require("http");
 const { Server } = require("socket.io");
-const { get } = require('https')
 const cors = require("cors");
 
 app.use(cors());
