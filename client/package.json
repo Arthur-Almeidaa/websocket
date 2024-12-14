@@ -10,6 +10,11 @@
     "socket.io-client": "^4.8.1",
     "web-vitals": "^4.2.4"
   },
+
+  "devDependencies": {
+    "webpack": "^5.0.0",
+    "react-scripts": "^4.0.0"
+  },
   "homepage": "./",
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
