@@ -7,19 +7,19 @@ const cors = require("cors");
 
 app.use(cors());
 
-app.use(express.static(path.join(__dirname, 'index.html')))
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
-})
-
+});
 const PORT = 3001
 
 const server = http.createServer(app);
 
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000", // Permite a conexão do frontend React
+    origin: "https://frontend-lbr3.onrender.com", // Permite a conexão do frontend React
     methods: ["GET", "POST"],
   },
 });
@@ -85,6 +85,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3001, () => {
+server.listen(PORT, () => {
   console.log("SERVER IS RUNNING");
 });
