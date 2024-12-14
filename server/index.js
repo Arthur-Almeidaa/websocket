@@ -8,9 +8,6 @@ const cors = require("cors");
 app.use(cors());
 
 const PORT = process.env.PORT || 3001
-const staticPath = path.resolve(__dirname, "public")
-
-app.use(express.static(staticPath))
 
 const server = http.createServer(app);
 
@@ -81,13 +78,6 @@ io.on("connection", (socket) => {
     emitCounts(); // Emite os novos valores
   });
 });
-
-
-app.get("*", (req, res) => {
-  const indexFile = path.join(__dirname, "public", "index.html")
-  return res.sendFile(indexFile)
-})
-
 
 server.listen(PORT || 3001, () => {
   console.log("SERVER IS RUNNING");
