@@ -7,13 +7,19 @@ const cors = require("cors");
 
 app.use(cors());
 
-const PORT = process.env.PORT || 3001
+app.use(express.static(path.join(__dirname, 'index.html')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
+const PORT = 3001
 
 const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000", // Permite a conexão do frontend React
+    origin: "http://localhost:3000", // Permite a conexão do frontend React
     methods: ["GET", "POST"],
   },
 });
@@ -79,6 +85,6 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(PORT || 3001, () => {
+server.listen(3001, () => {
   console.log("SERVER IS RUNNING");
 });
