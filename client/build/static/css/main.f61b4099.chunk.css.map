@@ -1,0 +1,1 @@
+{"version":3,"sources":["App.css"],"names":[],"mappings":"AAAA,KAEE,+CACF,CAGA,SAEE,gBACF","file":"main.f61b4099.chunk.css","sourcesContent":[".App\r\n{\r\n  font-family:Georgia, 'Times New Roman', Times, serif;\r\n}\r\n\r\n\r\nh1, h2, h3\r\n{\r\n  margin-left: 15px;\r\n}\r\n"]}
