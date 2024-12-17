@@ -1,90 +1,134 @@
 const express = require("express");
-const app = express();
-const path = require('path')
+const path = require("path");
 const http = require("http");
 const { Server } = require("socket.io");
 const cors = require("cors");
 
-app.use(cors());
+const app = express();
+const PORT = 3001;
 
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(cors({
+  origin: "http://localhost:3000",
+  methods: ["GET", "POST"],
+}));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+app.use(express.static(path.join(__dirname, "build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html"));
 });
-const PORT = 3001
+
 
 const server = http.createServer(app);
 
-
 const io = new Server(server, {
   cors: {
-    origin: "https://frontend-lbr3.onrender.com", // Permite a conexão do frontend React
+    origin: "https://frontend-lbr3.onrender.com",
     methods: ["GET", "POST"],
   },
 });
 
-// Contadores para cada simulador de carro
 let porscheCount = 0;
 let formulaCount = 0;
 let mercedesCount = 0;
+let imersivaCount = 0;
+let carroProfissionalCount1 = 0;
+let carroProfissionalCount2 = 0;
+let aviaoCount = 0;
 
-// Função para emitir os contadores para todos os clientes
 const emitCounts = () => {
   io.emit("receive_message", {
     porscheCount,
     formulaCount,
     mercedesCount,
+    imersivaCount,
+    carroProfissionalCount1,
+    carroProfissionalCount2,
+    aviaoCount
   });
 };
 
 io.on("connection", (socket) => {
-  console.log(`User connected ${socket.id}`);
 
-  // Envia os contadores iniciais para o cliente
   socket.emit("receive_message", {
     porscheCount,
     formulaCount,
     mercedesCount,
+    imersivaCount,
+    carroProfissionalCount1,
+    carroProfissionalCount2,
+    aviaoCount
   });
 
-  // Evento de incremento para Porsche
   socket.on("increment_porsche", () => {
     porscheCount++;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de decremento para Porsche
   socket.on("decrement_porsche", () => {
-    porscheCount--;
-    emitCounts(); // Emite os novos valores
+    porscheCount = Math.max(0, porscheCount - 1);
+    emitCounts();
   });
 
-  // Evento de incremento para Fórmula
   socket.on("increment_formula", () => {
     formulaCount++;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de decremento para Fórmula
   socket.on("decrement_formula", () => {
-    formulaCount--;
-    emitCounts(); // Emite os novos valores
+    formulaCount = Math.max(0, formulaCount - 1);
+    emitCounts();
   });
 
-  // Evento de incremento para Mercedes
+
   socket.on("increment_mercedes", () => {
     mercedesCount++;
-    emitCounts(); // Emite os novos valores
+    emitCounts();
   });
 
-  // Evento de decremento para Mercedes
   socket.on("decrement_mercedes", () => {
-    mercedesCount--;
-    emitCounts(); // Emite os novos valores
+    mercedesCount = Math.max(0, mercedesCount - 1);
+    emitCounts();
+  });
+
+  socket.on("increment_imersiva", () => {
+    imersivaCount++;
+    emitCounts();
+  });
+  
+  socket.on("decrement_imersiva", () => {
+    imersivaCount = Math.max(0, imersivaCount - 1);
+    emitCounts();
+  });
+
+  socket.on("increment_profissional1", () => {
+    carroProfissionalCount1++
+    emitCounts()
+  })
+
+  socket.on("decrement_profissional1", () => {
+    carroProfissionalCount1 = Math.max(0, carroProfissionalCount1 - 1)
+    emitCounts()
+  })
+  socket.on("increment_profissional2", () => {
+    carroProfissionalCount2++
+    emitCounts()
+  })
+  socket.on("decrement_profissional2", () => {
+    carroProfissionalCount2 = Math.max(0, carroProfissionalCount2 - 1)
+    emitCounts()
+  })
+
+  socket.on("increment_aviao", () => {
+    aviaoCount++;
+    emitCounts();
+  });
+  
+  socket.on("decrement_aviao", () => {
+    aviaoCount = Math.max(0, aviaoCount - 1);
+    emitCounts();
   });
 });
 
 server.listen(PORT, () => {
-  console.log("SERVER IS RUNNING");
+  console.log(`SERVER IS RUNNING ON PORT ${PORT}`);
 });
