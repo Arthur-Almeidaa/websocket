@@ -7,11 +7,6 @@ const cors = require("cors");
 const app = express();
 const PORT = 3001;
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  methods: ["GET", "POST"],
-}));
-
 app.use(express.static(path.join(__dirname, "build")));
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
