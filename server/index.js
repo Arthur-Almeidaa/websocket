@@ -22,7 +22,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://frontend-lbr3.onrender.com",
+    origin: "https://websocket-5c8h.onrender.com",
     methods: ["GET", "POST"],
   },
 });
