@@ -12,6 +12,7 @@
     "web-vitals": "^4.2.4"
   },
   "devDependencies": {
+    "eslint-webpack-plugin": "^4.2.0",
     "react-scripts": "^3.0.1"
   },
   "homepage": ".",
