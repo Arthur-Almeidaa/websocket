@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import "./App.css";
 
-const socket = io("https://websocket-5c8h.onrender.com");
+const socket = io("http://localhost:3001");
 
 const CarSimulator = ({ carName, count, onIncrement, onDecrement }) => {
   return (
