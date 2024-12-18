@@ -1,31 +1,79 @@
-.App
-{
-  font-family:Georgia, 'Times New Roman', Times, serif;
-  background-color: #93cdf1;
-}
-
 html, body {
   margin: 0;
-  padding: 0
+  padding: 0;
+  background-color: #d9d9d9;
 }
 
 * {
   margin-top: 0;
+  
+}
+
+.App
+{
+  font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+div.header
+{
+  background-color: #303030;
+  align-items: end;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.header h1
+{
+  color: #d9d9d9;
+  padding-top: 20px;
+}
+
+select[name="Andares"]
+
+{ 
+  text-align: center;
+  size: 14px;
+  font-weight: bold;
+  position: absolute;
+  border-radius: 8px;
+  top: 5px;
+  right: 10px
+}
+
+h1
+{
+  text-align: center;
+  padding-top: 8px;
+}
+
+.h2-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.h2-container > div {
+  flex: 1 1 200px;
+}
+
+.h2-container h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  padding-top: 20px;
+ 
+}
+
+.simuladores-carro, .imersivas, .simuladores-profissionais, .aviao {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; 
 }
 
 .car-simulator {
-  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-h1, h2, h3 {
-  margin-left: 10px;
-}
 
-button, h3 {
-  display: inline-block;
-}
-
-button{
-  margin-left: 2px;
-}
 

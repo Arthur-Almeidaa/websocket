@@ -67,58 +67,44 @@ function App() {
   const decrementAviao = () => socket.emit("decrement_aviao");
 
   return (
+    
     <div className="App">
-      <h1>Térreo</h1>
-      <h2>Simuladores de Carro:</h2>
 
-      <CarSimulator 
-      carName="Porsche" 
-      count={porscheCount} 
-      onIncrement={incrementPorsche} 
-      onDecrement={decrementPorsche} />
-
-      <CarSimulator 
-      carName="Fórmula" 
-      count={formulaCount} 
-      onIncrement={incrementFormula} 
-      onDecrement={decrementFormula} />
+    <div className="header">
+      <h1>Contagens <span style={{ color: '#80cd76' }}>Exceed</span></h1>
       
-      <CarSimulator 
-      carName="Mercedes" 
-      count={mercedesCount} 
-      onIncrement={incrementMercedes} 
-      onDecrement={decrementMercedes} />
-
-      <h2>Imersivas:</h2>
-
-      <CarSimulator 
-      carName="Imersiva" 
-      count={imersivaCount} 
-      onIncrement={incrementImersiva} 
-      onDecrement={decrementImersiva} />
-
-      <h2>Simuladores Profissionais:</h2>
-
-      <CarSimulator
-      carName="McLaren"
-      count={carroProfissionalCount1}
-      onIncrement={incrementCarroProfissionalCount1} 
-      onDecrement={decrementCarroProfissionalCount1}/>
-
-      <CarSimulator
-      carName="Formula"
-      count={carroProfissionalCount2}
-      onIncrement={incrementCarroProfissionalCount2} 
-      onDecrement={decrementCarroProfissionalCount2}/>
-
-      <h2>Aviao:</h2>
-
-      <CarSimulator
-      carName="Aviao"
-      count={aviaoCount}
-      onIncrement={incrementAviao}
-      onDecrement={decrementAviao}/>
+      <select name="Andares">
+        <option value="G1">G1</option>
+        <option value="G1">Térreo</option>
+        <option value="G1">3 e 4 Andar</option>
+      </select>
     </div>
+
+    <div className="h2-container">
+  <div className="simuladores-carro">
+    <h2>Simuladores de Carro:</h2>
+    <CarSimulator carName="Porsche" count={porscheCount} onIncrement={incrementPorsche} onDecrement={decrementPorsche} />
+    <CarSimulator carName="Fórmula" count={formulaCount} onIncrement={incrementFormula} onDecrement={decrementFormula} />
+    <CarSimulator carName="Mercedes" count={mercedesCount} onIncrement={incrementMercedes} onDecrement={decrementMercedes} />
+  </div>
+
+  <div className="imersivas">
+    <h2>Imersivas:</h2>
+    <CarSimulator carName="Imersiva" count={imersivaCount} onIncrement={incrementImersiva} onDecrement={decrementImersiva} />
+  </div>
+
+  <div className="simuladores-profissionais">
+    <h2>Simuladores Profissionais:</h2>
+    <CarSimulator carName="McLaren" count={carroProfissionalCount1} onIncrement={incrementCarroProfissionalCount1} onDecrement={decrementCarroProfissionalCount1} />
+    <CarSimulator carName="Fórmula" count={carroProfissionalCount2} onIncrement={incrementCarroProfissionalCount2} onDecrement={decrementCarroProfissionalCount2} />
+  </div>
+
+  <div className="aviao">
+    <h2>Aviao:</h2>
+    <CarSimulator carName="Aviao" count={aviaoCount} onIncrement={incrementAviao} onDecrement={decrementAviao} />
+  </div>
+  </div>
+</div>
   );
 }
 
